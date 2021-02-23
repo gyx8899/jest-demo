@@ -1,0 +1,22 @@
+import React from 'react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
+// eslint-disable-next-line sort-imports
+import CheckboxWithLabel from '../CheckboxWithLabel';
+
+// eslint-disable-next-line max-len
+// Note: running cleanup afterEach is done automatically for you in @testing-library/react@9.0.0 or higher
+// unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
+
+it('CheckboxWithLabel changes the text after click', () => {
+	const {queryByLabelText, getByLabelText} = render(
+			// eslint-disable-next-line react/jsx-filename-extension
+			<CheckboxWithLabel labelOn="On" labelOff="Off" />,
+	);
+
+	expect(queryByLabelText(/off/i)).toBeTruthy();
+
+	fireEvent.click(getByLabelText(/off/i));
+
+	expect(queryByLabelText(/on/i)).toBeTruthy();
+});
